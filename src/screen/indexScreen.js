@@ -1,16 +1,12 @@
 import React,{useContext} from "react";
 import {Text,View,StyleSheet,FlatList,Button,TouchableOpacity} from "react-native";
 import {Context} from "../context/BlogContext";
-import { EvilIcons } from '@expo/vector-icons';
+import { EvilIcons,Feather } from '@expo/vector-icons';
 
 const indexScreen=({navigation})=>{
     const {state,addBlogPost,deleteBlogPost}=useContext(Context);
     return (
-        <View>          
-                <Button
-                title="add post"
-                onPress={addBlogPost}
-                />
+        <View> 
                 <FlatList
                     data={state}
                     keyExtractor={(item)=>item.title}
@@ -31,7 +27,16 @@ const indexScreen=({navigation})=>{
                     }}
                 />          
         </View>
-    )
+    );
+};
+indexScreen.navigationOptions=({navigation})=>{
+    return {
+        headerRight: () => (
+          <TouchableOpacity onPress={() => navigation.navigate('create')}>
+            <Feather name="plus" size={30} />
+          </TouchableOpacity>
+        ),
+      };
 }
 
 const style=StyleSheet.create({
